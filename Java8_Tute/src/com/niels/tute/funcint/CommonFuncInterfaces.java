@@ -1,4 +1,4 @@
-package com.niels.tute.funcInt;
+package com.niels.tute.funcint;
 
 import java.util.function.IntPredicate;
 import java.util.function.IntUnaryOperator;
@@ -17,6 +17,12 @@ public class CommonFuncInterfaces {
 		IntUnaryOperator intOp2 = (int t) -> t - 1;
 		int result = intOp.andThen(intOp2).applyAsInt(x); // intOp is evaluated first then intOp2
 		System.out.println(result);
+		
+		IntegerFunction intFunc = (Integer c, Integer d) -> c + d;
+		Integer y = 6;
+		String str = String.format("intFunct(%d,%d)=%d", x, y, intFunc.doSomething(x, y));
+		System.out.println(str);
+		
 		
 	}
 }
