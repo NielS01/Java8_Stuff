@@ -44,6 +44,7 @@ public class StreamExample {
 		Map<Dish.Type, List<Dish>> byDishType = menu.stream().collect(Collectors.groupingBy(Dish::getType));
 		// Print by dish type
 		// see: https://www.mkyong.com/java8/java-8-foreach-examples/
+		System.out.println("Printing out Map");
 		byDishType.forEach((k,v)-> {System.out.println(k.name() +":" ); 
 							v.forEach(d -> System.out.println("\t"+d.getName())); });
 		
