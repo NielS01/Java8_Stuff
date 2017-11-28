@@ -49,7 +49,18 @@ public class StreamExample2 {
 			                                  .map(j -> new int[]{i, j})
 			                    )
 							.collect(Collectors.toList());
+		System.out.println("Quiz 2: printing pairs");
+		pairs.forEach(i -> {System.out.println(i[0] + "," + i[1]);});
 		
+		// How would you extend the previous example to return only pairs whose sum is divisible by 3? 
+		List<int[]> pairs2 = intList1.stream()
+				.flatMap(i -> intList2.stream()
+                                  .map(j -> new int[]{i, j})
+                                  .filter(d -> ((d[0] + d[1]) % 2) == 0)
+                    )
+				.collect(Collectors.toList());
+		System.out.println("Quiz 3: printing pairs whose sum is even");
+		pairs2.forEach(i -> {System.out.println(i[0] + "," + i[1]);});
 	}
 	
 }
