@@ -28,5 +28,14 @@ public class StreamReducing {
 		System.out.println("Max: " + maxNum);
 		Optional<Integer> minNum =  numberList.stream().reduce(Integer::min);
 		System.out.println("Min: " + minNum.get());
+		
+		// Quiz: How would you count the number of dishes in a stream using 
+		// the map and reduce methods?
+		Integer numberOfDishes = menu.stream().
+									map(a -> 1).reduce(0,Integer::sum);
+		System.out.println("Number of dishes : " +numberOfDishes);
+		// Note this can also be accomplisehd by stream().count()
+	    numberOfDishes = menu.parallelStream().map(a -> 1).reduce(0, Integer::sum); // Parallel version
+		
 	}
 }
