@@ -47,7 +47,7 @@ public class CompareFiles {
 		
 	}
 
-	
+	 
 	private static String compare(List<String> list1, List<String> list2, ComparisonProcessor cp) {
 		StringBuilder sb = new StringBuilder();
 		
