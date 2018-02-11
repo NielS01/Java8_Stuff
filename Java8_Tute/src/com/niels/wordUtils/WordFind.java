@@ -1,8 +1,10 @@
 package com.niels.wordUtils;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class WordFind {
+
 
 	/*
 	 *   {"a", "b", "e", "n", "f"},
@@ -12,9 +14,15 @@ public class WordFind {
 		 {"a", "b", "d", "x", "n"}
 	 */
 	// May incorporate with a dictionary some day
+	static WordDictionary wordList = new WordDictionary();
 	static Boolean isAWord(String word) {
-		return true;
+		Stream<String> words = wordList.getDictionaryWordList().stream();
+		if (words != null && words.anyMatch(str -> str.equalsIgnoreCase(word))) {
+			return true;
+		}
+		return false;
 	}
+	
 
 	// Return a list of strings from current position to forward end
 	static ArrayList<String> findWordsByDir(String[][] wordMatrix, int x, int y, FindNextCoordinates findCoord) {
@@ -63,6 +71,8 @@ public class WordFind {
 			System.out.println("");
 		}
 	}
+	
+	
 
 	public static void main(String[] args) {
 		String[][] wordMatrix = WordMatrix.squreMatrix1;
