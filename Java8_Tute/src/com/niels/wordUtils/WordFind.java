@@ -1,5 +1,8 @@
 package com.niels.wordUtils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +23,9 @@ public class WordFind {
 	 */
 	static Boolean isAWord(String word) {
 		List<String> words = wordList.getDictionaryWordList();
+		if (word.length() <= 2) { // ignore 2 letter words
+			return false;
+		}
 		int index = Collections.binarySearch(words, word, String::compareToIgnoreCase);
 		if (index > 0) {
 			return true;
@@ -131,11 +137,42 @@ public class WordFind {
 	    return result2;
 	}
 
+	private static String[][] readMatrixFromFile(String inFile)  {
+		String[][] resultMatrix;
+		Stream<String> lines;
+		try {
+			lines = Files.lines(Paths.get(inFile));
+			List<String[]> matrixList = lines.map(line -> line.split(" ")).collect(Collectors.toList()); // Now we have a list of String[]
+			int len = matrixList.size();
+			resultMatrix = new String[len][len];
+			
+			int ctr = 0;
+			for(String[] strArray : matrixList) {
+				resultMatrix[ctr++] = strArray;
+			}
+			lines.close();
+			return resultMatrix;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(String.format("Unable to read file[%s]", inFile));
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public static void main(String[] args) {
-		String[][] wordMatrix = WordMatrix.squreMatrix1;
+		String[][] wordMatrix;
+		if (args.length > 0) {
+			String inFile = args[0];
+			wordMatrix = readMatrixFromFile (inFile);
+		} else {
+			wordMatrix = WordMatrix.squreMatrix1;
+		}
+		
+		if (wordMatrix != null) {
+			printMatrix(wordMatrix);
+			printWordsAtAllCoords(wordMatrix);
+		}
 
-		printMatrix(wordMatrix);
-		printWordsAtAllCoords(wordMatrix);
 	}
 }
 
