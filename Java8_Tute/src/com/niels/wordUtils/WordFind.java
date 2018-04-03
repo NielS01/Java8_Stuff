@@ -45,6 +45,8 @@ public class WordFind {
 	}
 
 	// Return a list of strings from current position to forward end
+	// This uses 'execute around' pattern - where a behaviour (finding the next coordinates in a given direction)
+	// is passed in as a functional interface
 	static ArrayList<String> findWordsByDir(String[][] wordMatrix, int x, int y, FindNextCoordinates findCoord) {
 		
 		String currentChar = wordMatrix[y][x];
@@ -111,7 +113,10 @@ public class WordFind {
 			System.out.println(String.format("%d) %s", ++ctr, str));
 		}
 	}
+	
 	static List<String> printWordsAtCoord(String[][] wordMatrix, int xCoor, int yCoor) {
+		// Once the directions were expressed like this, it was easy to add additional
+		// directions
 		FindNextCoordinates forward = (x,y)->new Coordinates(x+1,y);
 		FindNextCoordinates backward = (x,y)->new Coordinates(x-1,y);
 		
